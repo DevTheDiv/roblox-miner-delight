@@ -26,7 +26,7 @@ setInterval(() => {
 // example of collectable with spawner
 setInterval(() => {
 	let GemSpawn  : BasePart[] = Workspace.GetChildren().filter(c => c.Name === "Gem Spawn") as BasePart[];
-    let collectable : Collectable | undefined = new Collectable("gem", GemSpawn[0]);
+    let collectable : Collectable | undefined = new Collectable("Gem", GemSpawn[0]);
     let vector = new Vector3(GemSpawn[0].Position.X , GemSpawn[0].Position.Y + 5,  GemSpawn[0].Position.Z);
     collectable.setPostion(vector);
     collectable.setParent(GemSpawn[0]);

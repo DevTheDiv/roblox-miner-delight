@@ -12,35 +12,46 @@ class Pickaxe {
     template : Tool;
     model : Tool;
     animation : Animation = new Instance("Animation");
+    sound : {impact: Sound, swing: Sound} =  {
+        impact : new Instance("Sound") ,
+        swing  : new Instance("Sound"),
+    }
+
+    
+    beingUsed = false;
 
     constructor() {
         this.template = Templates.FindFirstChild("Pickaxe") as Tool;
         this.model = this.template.Clone() as Tool;
+        let child = this.model.FindFirstChild("Handle_") as MeshPart;
+        child.Name = "Handle";
 
-        
 
         // The work space will be the default parent for a new object
         this.model.Parent = Workspace;
         this.model.Name = "Pickaxe";
-
+        this.model.ManualActivationOnly = false;
         this.animation.AnimationId = "rbxassetid://7890842145";
         this.animation.Name = "Pick Axe";
 
-
+        this.sound.impact.SoundId = "rbxassetid://7380609515";
+        this.sound.impact.Parent = this.model;
 
         this.init();
     }
 
     init() : void {
         let handle = this.model.FindFirstChild("Handle") as MeshPart;
+
+        // if touch was detected
         handle.Touched.Connect(( part: BasePart) => {
             this.onTouched(part);
         });
 
-        this.model.Equipped.Connect((mouse: Mouse) => {         
+        // if equipped
+        this.model.Equipped.Connect(() => {         
             this.onEquipped();
         });
-
     }
 
     private onEquipped() : void {
@@ -50,12 +61,16 @@ class Pickaxe {
         anime.Priority = Enum.AnimationPriority.Action;
         this.model.Activated.Connect(() => {
             anime.Play();
+            this.beingUsed = true;
         })
         this.model.Deactivated.Connect(() => {
             anime.Stop();
+            this.beingUsed = false;
+
         })
         this.model.Unequipped.Connect(() => {
             anime.Stop();
+            this.beingUsed = false;
         });
     }
     private onUnequipped() : void {
@@ -64,7 +79,12 @@ class Pickaxe {
 
 
     private onTouched(part: BasePart) : void {
-        console.log("Touched: " + part.Name);
+
+        if (this.beingUsed) {
+            //rbxassetid://7380609515
+            this.sound.impact.Play();
+            console.log("Touched: " + part.Name);
+        }
     }
 
 
