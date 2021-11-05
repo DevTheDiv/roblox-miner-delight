@@ -4,11 +4,13 @@ import { Server as SimpleSignals } from "@rbxts/simplesignals";
 //https://www.npmjs.com/package/@rbxts/networked-signals
 import { Chat, Players, Workspace } from "@rbxts/services";
 import { setInterval, setTimeout, clearInterval } from "shared/timers";
+import console from "shared/console";
 
 
 import Collectable from "./collectable";
 
 import Pickaxe from "./pickaxe";
+import Mineables from "./mineables";
 
 
 
@@ -39,14 +41,18 @@ setInterval(() => {
 
 
 
+let OreSpawn  : BasePart[] = Workspace.GetChildren().filter(c => c.Name === "Ore Spawn") as BasePart[];
+let vector = new Vector3(OreSpawn[0].Position.X , OreSpawn[0].Position.Y + 5,  OreSpawn[0].Position.Z);
+let min = new Mineables(vector);
+
 
 // internals
-import console from "shared/console";
 
 
 // welcomes the player to the server
 SimpleSignals.on("connected", (player : Player) => {
-	console.log(player);
+	console.log(player.Character);
 	console.log(player.Name, "Connected To The Server");
+
 	SimpleSignals.fire("welcome", player);
 });

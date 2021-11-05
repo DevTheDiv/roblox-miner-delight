@@ -31,10 +31,13 @@ class Pickaxe {
         this.model.Parent = Workspace;
         this.model.Name = "Pickaxe";
         this.model.ManualActivationOnly = false;
+
         this.animation.AnimationId = "rbxassetid://7890842145";
-        this.animation.Name = "Pick Axe";
+        this.animation.Name = "Pickaxe Animation";
+        this.animation.Parent = this.model;
 
         this.sound.impact.SoundId = "rbxassetid://7380609515";
+        this.sound.impact.Name = "Pickaxe Impact Sound";
         this.sound.impact.Parent = this.model;
 
         this.init();

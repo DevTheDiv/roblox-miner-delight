@@ -6,9 +6,7 @@ import { setInterval, setTimeout, clearInterval } from "shared/timers";
 import console from "shared/console";
 import { Players } from "@rbxts/services";
 
-
 // let the server know the client has connected
-SimpleSignals.fire("connected");
 
 SimpleSignals.on("welcome", () => {
 	console.log(
@@ -16,3 +14,14 @@ SimpleSignals.on("welcome", () => {
 		Players.LocalPlayer.GetFullName()
 	);
 });
+
+
+
+Players.LocalPlayer.CharacterAdded.Connect((Character) => {
+	SimpleSignals.fire("connected");
+});
+
+
+
+
+
