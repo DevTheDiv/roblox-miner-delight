@@ -84,7 +84,6 @@ class Pickaxe {
     private onTouched(part: BasePart) : void {
 
         if (this.beingUsed) {
-            //rbxassetid://7380609515
             this.sound.impact.Play();
             console.log("Touched: " + part.Name);
         }
