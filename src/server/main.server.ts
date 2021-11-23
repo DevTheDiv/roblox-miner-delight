@@ -6,24 +6,22 @@ import { Chat, Players, Workspace } from "@rbxts/services";
 import { setInterval, setTimeout, clearInterval } from "shared/timers";
 import console from "shared/console";
 
-import * as Roomgen from "./roomgen";
+// import * as Roomgen from "./roomgen";
 
-import Collectable from "./collectable";
-import Pickaxe from "./pickaxe";
+// import Collectable from "./collectable";
+
+
 import Mineables from "./mineables";
 
 
+import Pickaxe from "./pickaxe";
+let spawner : BasePart = Workspace.GetChildren().filter(c => c.Name === "Pickaxe Spawn")[0] as BasePart;
+let pickaxeb = new Pickaxe();
+let pos = new Vector3(spawner.Position.X, spawner.Position.Y + 3, spawner.Position.Z);
+pickaxeb.setParent(spawner);
+pickaxeb.setPosition(pos);
+pickaxeb.setColor(Color3.fromRGB(0, 255, 235));
 
-
-// // example of pickaxe with spawner
-// setInterval(() => {
-// 	let spawner : BasePart = Workspace.GetChildren().filter(c => c.Name === "Pickaxe Spawn")[0] as BasePart;
-// 	let pickaxeb = new Pickaxe();
-// 	let pos = new Vector3(spawner.Position.X, spawner.Position.Y + 3, spawner.Position.Z);
-// 	pickaxeb.setParent(spawner);
-// 	pickaxeb.setPosition(pos);
-// 	pickaxeb.setColor(Color3.fromRGB(0, 255, 235));
-// }, 5000);
 
 // // example of collectable with spawner
 // setInterval(() => {
